@@ -132,7 +132,7 @@ button:hover {
   font-weight: bold;
 }
 
-.operator {
+.operator, .nonNumeric {
   color: #fff;
   font-size: 25px;
 }
