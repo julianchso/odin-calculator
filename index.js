@@ -25,27 +25,20 @@ backspace.addEventListener("click", backspaceFn);
 
 // Click first number and display it on main display.
 digits.forEach((digit) => {
-  if (operatorSign == "") {
-    // if (firstNumToggle) {
-    console.log(`firstNum: ${firstNum}`);
-    digit.addEventListener("click", displayFirstValue);
-    // } else if (!firstNumToggle) {
-  } else {
-    console.log(`secondNum: ${secondNum}`);
-    digit.addEventListener("click", displaySecondValue);
-  }
+  digit.addEventListener("click", displayFirstValue);
+  // } else if (!firstNumToggle) {
 });
 
 function displayFirstValue(e) {
-  firstNum += e.target.value;
-  mainDisplay.textContent = firstNum;
-  console.log(`displayFirstValue: ${firstNum}`);
-}
-
-function displaySecondValue(e) {
-  secondNum += e.target.value;
-  mainDisplay.textContent = secondNum;
-  console.log(`displaySecondValue: ${secondNum}`);
+  if (operatorSign == "") {
+    firstNum += e.target.value;
+    mainDisplay.textContent = firstNum;
+    console.log(`displayFirstValue: ${firstNum}`);
+  } else if (operatorSign) {
+    secondNum += e.target.value;
+    mainDisplay.textContent = secondNum;
+    console.log(`displaySecondValue: ${secondNum}`);
+  }
 }
 
 operators.forEach((operator) => {
@@ -54,12 +47,8 @@ operators.forEach((operator) => {
 
 function operation(e) {
   operatorSign = e.target.textContent;
-  console.log(operatorSign);
   formulaDisplay.textContent = `${firstNum} ${operatorSign}`;
-  firstNum = "";
   firstNumToggle = false;
-  console.log(firstNumToggle);
-  // mainDisplay.textContent = firstNum;
 }
 
 // Click second number. First number disappears from main display and second number appears.
@@ -71,14 +60,14 @@ function operation(e) {
 function equals() {
   console.log(`firstNum: ${firstNum}`);
   console.log(`secondNum: ${secondNum}`);
-  // mainDisplay.textContent = operations();
+  formulaDisplay.textContent = `${firstNum} ${operatorSign} ${secondNum}`;
 }
 
 function clearAll() {
   firstNum = "";
   secondNum = "";
   formulaDisplay.textContent = "";
-  mainDisplay.textContent = firstNum;
+  mainDisplay.textContent = 0;
   operatorSign = "";
   firstNumToggle = true;
 }
