@@ -1,3 +1,7 @@
+// TODO: get rid of leading zeros
+// TODO: entering a number after equals sign will clear current operation
+// TODO: if operatorSign is clicked after equal sign, perform operation (ie. secondNum becomes firstNum)
+
 const mainDisplay = document.querySelector("#mainDisplay");
 const secondaryDisplay = document.querySelector("#secondaryDisplay");
 const operatorsBtn = document.querySelectorAll(".operator");
