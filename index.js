@@ -9,7 +9,7 @@ const decimal = document.querySelector("#decimal");
 const percentage = document.querySelector("#percentage");
 const postiveNegative = document.querySelector("#postiveNegative");
 
-let firstNum = "";
+let firstNum = 0;
 let secondNum = "";
 let operatorSign = "";
 let result = "";
@@ -35,18 +35,12 @@ operatorsBtn.forEach((operator) => {
 function displayValue(e) {
   if (!operatorSign) {
     firstNum += e.target.value;
-    // if (mainDisplay.includes(".")) return;
     mainDisplay.textContent = firstNum;
   } else if (operatorSign) {
-    // if (secondNum.includes(".")) return;
     secondNum += e.target.value;
     mainDisplay.textContent = secondNum;
   }
 }
-
-// function appendDecimal(e) {
-//   if (firstNum)
-// }
 
 // Store operator sign and display on secondary display
 function operation(e) {
@@ -91,8 +85,6 @@ function flipPositiveNegative() {
 }
 
 function calculate() {
-  console.log(`firstNum: ${firstNum}`);
-  console.log(`secondNum: ${secondNum}`);
   removeLastDecimal();
   secondaryDisplay.textContent = `${firstNum} ${operatorSign} ${secondNum}`;
   result = operate();
@@ -121,26 +113,20 @@ function backspaceValue() {
     secondNum = secondNum.slice(0, -1);
     mainDisplay.textContent = secondNum;
   }
-  // console.log(`backspaceFirstValue: ${firstNum}`);
-  // console.log(firstNum);
 }
 
-// function backspaceSecondValue() {
-
-// }
-
-function operate() {
-  firstNum = Number(firstNum);
-  secondNum = Number(secondNum);
+function operate(a, b) {
+  a = Number(firstNum);
+  b = Number(secondNum);
   if (operatorSign == "x") {
-    return Math.round(firstNum * secondNum * 100) / 100;
+    return Math.round(a * b * 100) / 100;
   } else if (operatorSign == "÷") {
-    if (secondNum == 0) return "no no no";
-    return Math.round((firstNum / secondNum) * 100) / 100;
+    if (b == 0) return "no no no";
+    return Math.round((a / b) * 100) / 100;
   } else if (operatorSign == "+") {
-    return firstNum + secondNum;
+    return a + b;
   } else if (operatorSign == "–") {
-    return firstNum - secondNum;
+    return a - b;
   }
 }
 

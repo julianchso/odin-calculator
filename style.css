@@ -100,8 +100,8 @@ body {
 }
 
 #secondaryDisplay {
-    height: 35%;
-    font-size: 25px;
+  height: 35%;
+  font-size: 25px;
 }
 
 .buttonContainer {
@@ -121,9 +121,13 @@ button {
 }
 
 button:hover {
-    transform: scale(1.2);
-    cursor: pointer;
-    transition: 0.2s;
+  transform: scale(1.2);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:active {
+  opacity: 0.5;
 }
 
 .digit {
@@ -132,11 +136,12 @@ button:hover {
   font-weight: bold;
 }
 
-.operator, .nonNumeric {
+.operator,
+.nonNumeric {
   color: #fff;
   font-size: 25px;
 }
 
 #equals {
-    background-color: #056E6B
+  background-color: #056e6b;
 }
