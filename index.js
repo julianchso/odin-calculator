@@ -5,6 +5,9 @@ const backspaceBtn = document.querySelector("#backspace");
 const clearBtn = document.querySelector("#clear");
 const calculateBtn = document.querySelector("#calculate");
 const digitsBtn = document.querySelectorAll(".digit");
+const decimal = document.querySelector("#decimal");
+const percentage = document.querySelector("#percentage");
+const postiveNegative = document.querySelector("#postiveNegative");
 
 let firstNum = "";
 let secondNum = "";
@@ -15,6 +18,9 @@ let firstNumToggle = true;
 clearBtn.addEventListener("click", clearAll);
 calculateBtn.addEventListener("click", calculate);
 backspaceBtn.addEventListener("click", backspaceFn);
+decimal.addEventListener("click", appendDecimal);
+percentage.addEventListener("click", applyPercentage);
+postiveNegative.addEventListener("click", flipPositiveNegative);
 
 // Click first number and display it on main display.
 digitsBtn.forEach((digit) => {
@@ -27,12 +33,9 @@ operatorsBtn.forEach((operator) => {
 
 // Store value in firstNum. If the operator sign is clicked, store value in secondNum.
 function displayValue(e) {
-  // while (firstNum.includes(".") {
-
-  // })
   if (!operatorSign) {
     firstNum += e.target.value;
-    // if (firstNum.includes(".")) return;
+    // if (mainDisplay.includes(".")) return;
     mainDisplay.textContent = firstNum;
   } else if (operatorSign) {
     // if (secondNum.includes(".")) return;
@@ -48,16 +51,49 @@ function displayValue(e) {
 // Store operator sign and display on secondary display
 function operation(e) {
   operatorSign = e.target.textContent;
-  removeLastDecimal()
+  removeLastDecimal();
   mainDisplay.textContent = `${firstNum}`;
   secondaryDisplay.textContent = `${firstNum} ${operatorSign}`;
   firstNumToggle = false;
 }
 
+// adds decimal to function. If decimal already exists, do nothing (return)
+function appendDecimal() {
+  if (!operatorSign) {
+    if (firstNum.includes(".")) return;
+    firstNum += ".";
+    mainDisplay.textContent = `${firstNum}`;
+  } else if (operatorSign) {
+    if (secondNum.includes(".")) return;
+    secondNum += ".";
+    mainDisplay.textContent = `${secondNum}`;
+  }
+}
+
+function applyPercentage() {
+  if (!operatorSign) {
+    firstNum = firstNum / 100;
+    mainDisplay.textContent = `${firstNum}`;
+  } else if (operatorSign) {
+    secondNum = secondNum / 100;
+    mainDisplay.textContent = `${secondNum}`;
+  }
+}
+
+function flipPositiveNegative() {
+  if (!operatorSign) {
+    firstNum = firstNum * -1;
+    mainDisplay.textContent = `${firstNum}`;
+  } else if (operatorSign) {
+    secondNum = secondNum * -1;
+    mainDisplay.textContent = `${secondNum}`;
+  }
+}
+
 function calculate() {
   console.log(`firstNum: ${firstNum}`);
   console.log(`secondNum: ${secondNum}`);
-  removeLastDecimal()
+  removeLastDecimal();
   secondaryDisplay.textContent = `${firstNum} ${operatorSign} ${secondNum}`;
   result = operate();
   console.log(result);
@@ -97,18 +133,19 @@ function operate() {
   firstNum = Number(firstNum);
   secondNum = Number(secondNum);
   if (operatorSign == "x") {
-    return firstNum * secondNum;
+    return Math.round(firstNum * secondNum * 100) / 100;
   } else if (operatorSign == "÷") {
     if (secondNum == 0) return "no no no";
-    return firstNum / secondNum;
+    return Math.round((firstNum / secondNum) * 100) / 100;
   } else if (operatorSign == "+") {
     return firstNum + secondNum;
-  } else if (operatorSign == "-") {
+  } else if (operatorSign == "–") {
     return firstNum - secondNum;
   }
 }
 
 function removeLastDecimal() {
   if (firstNum[firstNum.length - 1] == ".") firstNum = firstNum.slice(0, -1);
-  if (secondNum[secondNum.length - 1] == ".") secondNum = secondNum.slice(0, -1);
+  if (secondNum[secondNum.length - 1] == ".")
+    secondNum = secondNum.slice(0, -1);
 }
